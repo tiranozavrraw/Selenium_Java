@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
@@ -65,6 +66,23 @@ public class SeleniumTest {
         }
 
 
+    }
+
+    @Test
+    public void testFilterQ() {
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("headless");
+        WebDriver driver = new ChromeDriver();
+        var page = new TVPage();
+        driver.manage().window().maximize();
+        driver.get("https://catalog.onliner.by/tv/");
+        var filterForScroll = driver.findElement(By.xpath("//input[@value='bbk']"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(filterForScroll);
+        actions.perform();
+        PageFactory.initElements(driver, page);
+        page.selectSamsungFilter();
     }
 
 
