@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.MainPage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SeleniumTest {
 
@@ -37,5 +37,8 @@ public class SeleniumTest {
         var element = elements.get(0);
         assertEquals("Sony", element.getText());
 
+        var results = tvPage.getResultList();
+        var notSony =results.stream().filter(x->!x.getText().contains("Sony"));
+        assertEquals(0, notSony.count());
     }
 }

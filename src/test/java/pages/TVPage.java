@@ -20,8 +20,21 @@ public class TVPage extends AbstractPage{
     @FindBy(xpath = "//input[@value='bbk']")
     private WebElement BBKFilter;
 
+    @FindBy(className = "schema-product__title")
+    private List<WebElement> resultList;
+
+    @FindBy(className = "js-schema-results")
+    private WebElement resultsArea;
+
     public TVPage(WebDriver driver) {
         super(driver);
+    }
+
+    public List<WebElement> getResultList() {
+        waitSeconds(0.2);
+        waitUntilNotHasClass(resultsArea, "schema-products_processing");
+        waitSeconds(0.2);
+        return resultList;
     }
 
     public TVPage selectSamsungFilter(){

@@ -33,7 +33,19 @@ public abstract class AbstractPage {
         driverWait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
+    protected void waitUntilNotHasClass(WebElement webElement, String className){
+        driverWait.until(ExpectedConditions.not(ExpectedConditions.attributeContains(webElement, "class", className)));
+    }
+
     protected void openUrl(String url){
         getDriver().get(url);
+    }
+
+    protected void waitSeconds(double seconds){
+        try {
+            Thread.sleep((long)(seconds * 1000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
