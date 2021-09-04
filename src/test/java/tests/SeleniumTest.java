@@ -1,28 +1,11 @@
 package tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pages.MainPage;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SeleniumTest {
-
-    private WebDriver driver;
-
-    @BeforeEach
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-    @AfterEach
-    public void turnOff() {
-        driver.close();
-    }
+public class SeleniumTest extends BaseTest{
 
     @Test
     public void beautifulTest() {
@@ -40,5 +23,14 @@ public class SeleniumTest {
         var results = tvPage.getResultList();
         var notSony =results.stream().filter(x->!x.getText().contains("Sony"));
         assertEquals(0, notSony.count());
+    }
+
+    @Test
+    public void testSearch() {
+        var searchPage = new MainPage(driver)
+                .open()
+                .performSearch("Яндекс Станция")
+                .getSearchResultTitles();
+        //Assertion should be here someday maybe
     }
 }
